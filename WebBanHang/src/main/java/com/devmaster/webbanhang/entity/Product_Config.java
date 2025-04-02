@@ -1,0 +1,35 @@
+package com.devmaster.webbanhang.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.util.List;
+
+@Entity
+@Table(name = "product_config")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Product_Config {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+
+    @Column(name = "VALUE")
+    String value;
+
+    // Thiết lập khóa ngoại với bảng Category
+    @ManyToOne
+    @JoinColumn(name = "IDPRODUCT", referencedColumnName = "ID")
+    Product product;
+
+    // Thiết lập khóa ngoại với bảng Category
+    @ManyToOne
+    @JoinColumn(name = "IDCONFIG", referencedColumnName = "ID")
+    Configurations configurations;
+
+}
