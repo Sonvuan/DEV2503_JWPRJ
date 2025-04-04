@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -43,14 +44,14 @@ public class Category {
     @Column(name = "CREATED_DATE")
     LocalDateTime createdDate;
 
-    @Column(name = "UPDATE_DATE")
-    LocalDateTime updateDate;
+    @Column(name = "UPDATEd_DATE")
+    LocalDateTime updatedDate;
 
     @Column(name = "CREATED_BY")
     Long createdBy;
 
     @Column(name = "UPDATE_BY")
-    Long updateBy;
+    Long updatedBy;
 
     @Column(name = "ISDELETE")
     Boolean isDelete;
@@ -63,21 +64,23 @@ public class Category {
     public void prePersist() {
         LocalDateTime now = LocalDateTime.now();
         this.createdDate = now;
-        this.updateDate = now; // Đặt ngày giờ cập nhật khi thêm mới
+        this.updatedDate = now; // Đặt ngày giờ cập nhật khi thêm mới
     }
 
     // @PreUpdate sẽ được gọi khi cập nhật đối tượng
     @PreUpdate
     public void preUpdate() {
-        this.updateDate = LocalDateTime.now(); // Cập nhật ngày giờ mỗi khi có sự thay đổi
+        this.updatedDate = LocalDateTime.now(); // Cập nhật ngày giờ mỗi khi có sự thay đổi
     }
 
     // Quan hệ cha
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "IDPARENT")  // Trỏ đến chính bảng Category
             Category parentCategory;
 
     // Ánh xạ quan hệ với Product (Một Category có nhiều Product)
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     List<Product> products;
 }

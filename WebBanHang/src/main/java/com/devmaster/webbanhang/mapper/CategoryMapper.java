@@ -4,8 +4,10 @@ import com.devmaster.webbanhang.dto.CategoryDTO;
 import com.devmaster.webbanhang.entity.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
+@Component
 public interface CategoryMapper {
 
     // Tạo instance của mapper

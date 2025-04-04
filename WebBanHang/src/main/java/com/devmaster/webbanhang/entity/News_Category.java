@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -48,14 +49,14 @@ public class News_Category {
     @Column(name = "CREATED_DATE")
     LocalDateTime createdDate;
 
-    @Column(name = "UPDATE_DATE")
-    LocalDateTime updateDate;
+    @Column(name = "UPDATEd_DATE")
+    LocalDateTime updatedDate;
 
     @Column(name = "CREATED_BY")
     Long createdBy;
 
-    @Column(name = "UPDATE_BY")
-    Long updateBy;
+    @Column(name = "UPDATEd_BY")
+    Long updatedBy;
 
     @Column(name = "ISDELETE")
     Boolean isDelete;
@@ -65,5 +66,6 @@ public class News_Category {
 
     // ánh xạ
     @OneToMany(mappedBy = "news_category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     List<News> news;
 }

@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -25,11 +26,13 @@ public class Product_Config {
     // Thiết lập khóa ngoại với bảng Category
     @ManyToOne
     @JoinColumn(name = "IDPRODUCT", referencedColumnName = "ID")
+    @JsonManagedReference
     Product product;
 
     // Thiết lập khóa ngoại với bảng Category
     @ManyToOne
     @JoinColumn(name = "IDCONFIG", referencedColumnName = "ID")
+    @JsonManagedReference
     Configurations configurations;
 
 }

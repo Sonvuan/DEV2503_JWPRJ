@@ -10,6 +10,9 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductDTO {
+    Long id;
+
+    CategoryDTO category;
 
     @NotBlank(message = "Tên sản phẩm không được để trống")
     @Size(max = 500, message = "Tên sản phẩm không được vượt quá 500 ký tự")
@@ -48,4 +51,13 @@ public class ProductDTO {
 
     @Size(max = 500, message = "Meta description không được vượt quá 500 ký tự")
     String metaDescription;
+
+    @NotNull(message = "Người tạo không được để trống")
+    private Long createdBy;
+
+    @NotNull(message = "Người cập nhật không được để trống")
+    private Long updateBy;
+
+    private Boolean isDelete;
+    private Boolean isActive;
 }

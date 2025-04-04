@@ -24,25 +24,29 @@ public class CategoryController {
 
     @PostMapping("/add")
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
-        CategoryDTO savedCategory = categoryService.saveCategory(categoryDTO);
+        CategoryDTO savedCategory = categoryService.createCategory(categoryDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
     }
 
-    @GetMapping("/search/{name}")
-    public List<Category> search(@PathVariable String name) {
+    @GetMapping("/search/name/{name}")
+    public List<CategoryDTO> search(@PathVariable String name) {
         return categoryService.getCategoryByName(name);
     }
 
-    @PutMapping("/update/{id}")
-    public Category update(@PathVariable Long id, @RequestBody Category category) {
-        // Kiểm tra xem ID trong URL và trong đối tượng có khớp không
-        if (!category.getId().equals(id)) {
-            throw new IllegalArgumentException("ID trong URL và ID trong đối tượng không khớp!");
-        }
 
-        // Gọi service để cập nhật
-        return categoryService.save(category);  // Truyền trực tiếp category vào service
+    @GetMapping("/search/id/{id}")
+    public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Long id) {
+        CategoryDTO categoryDTO = categoryService.getCategoryById(id);
+        return ResponseEntity.ok(categoryDTO);
     }
+
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<CategoryDTO> update(@Valid @PathVariable Long id, @RequestBody CategoryDTO categoryDTO) {
+        CategoryDTO updatedCategory = categoryService.updateCategory( id, categoryDTO);
+        return ResponseEntity.ok(updatedCategory);
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id) {

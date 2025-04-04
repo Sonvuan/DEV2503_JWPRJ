@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -56,14 +57,14 @@ public class Product {
     @Column(name = "CREATED_DATE")
     LocalDateTime createdDate;
 
-    @Column(name = "UPDATE_DATE")
-    LocalDateTime updateDate;
+    @Column(name = "UPDATED_DATE")
+    LocalDateTime updatedDate;
 
     @Column(name = "CREATED_BY")
     Long createdBy;
 
-    @Column(name = "UPDATE_BY")
-    Long updateBy;
+    @Column(name = "UPDATED_BY")
+    Long updatedBy;
 
     @Column(name = "ISDELETE")
     Boolean isDelete;
@@ -71,20 +72,39 @@ public class Product {
     @Column(name = "ISACTIVE")
     Boolean isActive;
 
+    // @PrePersist sẽ được gọi khi thêm mới đối tượng
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.createdDate = now;
+        this.updatedDate = now; // Đặt ngày giờ cập nhật khi thêm mới
+    }
+
+    // @PreUpdate sẽ được gọi khi cập nhật đối tượng
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedDate = LocalDateTime.now(); // Cập nhật ngày giờ mỗi khi có sự thay đổi
+    }
+
     // Thiết lập khóa ngoại với bảng Category
     @ManyToOne
     @JoinColumn(name = "IDCATEGORY", referencedColumnName = "ID")
+    @JsonManagedReference
     Category category;
+
 
     // ánh xạ
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     List<Product_Config> product_configs;
 
     // ánh xạ
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     List<Product_Images> product_images;
 
     // ánh ạ
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonManagedReference
     List<Orders_Details> orders_details;
 }

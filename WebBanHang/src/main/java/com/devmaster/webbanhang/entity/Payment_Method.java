@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -28,8 +29,8 @@ public class Payment_Method {
     @Column(name = "CREATED_DATE")
     LocalDateTime createdDate;
 
-    @Column(name = "UPDATE_DATE")
-    LocalDateTime updateDate;
+    @Column(name = "UPDATEd_DATE")
+    LocalDateTime updatedDate;
 
     @Column(name = "ISDELETE")
     Boolean isDelete;
@@ -38,5 +39,6 @@ public class Payment_Method {
     Boolean isActive;
 
     @OneToMany(mappedBy = "payment_method", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     List<Orders> orders;
 }

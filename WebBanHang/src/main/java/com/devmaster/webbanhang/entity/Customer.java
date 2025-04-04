@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -43,14 +44,14 @@ public class Customer {
     @Column(name = "CREATED_DATE")
     LocalDateTime createdDate;
 
-    @Column(name = "UPDATE_DATE")
-    LocalDateTime updateDate;
+    @Column(name = "UPDATED_DATE")
+    LocalDateTime updatedDate;
 
     @Column(name = "CREATED_BY")
     Long createdBy;
 
-    @Column(name = "UPDATE_BY")
-    Long updateBy;
+    @Column(name = "UPDATED_BY")
+    Long updatedBy;
 
     @Column(name = "ISDELETE")
     Boolean isDelete;
@@ -60,5 +61,6 @@ public class Customer {
 
     // Ánh xạ quan hệ với Product (Một Category có nhiều Product)
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     List<Orders> orders;
 }

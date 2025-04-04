@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -29,5 +30,6 @@ public class News {
 
     @ManyToOne
     @JoinColumn(name = "IDNEWSCATEGORY", referencedColumnName = "ID")
+    @JsonManagedReference
     News_Category news_category;
 }
