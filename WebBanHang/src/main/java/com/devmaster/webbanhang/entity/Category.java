@@ -1,5 +1,7 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -44,13 +46,13 @@ public class Category {
     @Column(name = "CREATED_DATE")
     LocalDateTime createdDate;
 
-    @Column(name = "UPDATEd_DATE")
+    @Column(name = "UPDATED_DATE")
     LocalDateTime updatedDate;
 
     @Column(name = "CREATED_BY")
     Long createdBy;
 
-    @Column(name = "UPDATE_BY")
+    @Column(name = "UPDATED_BY")
     Long updatedBy;
 
     @Column(name = "ISDELETE")
@@ -75,12 +77,11 @@ public class Category {
 
     // Quan hệ cha
     @ManyToOne
-    @JsonManagedReference
     @JoinColumn(name = "IDPARENT")  // Trỏ đến chính bảng Category
-            Category parentCategory;
+            Category parent;
 
     // Ánh xạ quan hệ với Product (Một Category có nhiều Product)
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     List<Product> products;
 }

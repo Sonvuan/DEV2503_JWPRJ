@@ -27,4 +27,27 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saveProduct);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ProductDTO> update(@Valid @RequestBody ProductDTO productDTO, @PathVariable Long id){
+        ProductDTO updateProduct = productService.updateProduct(id, productDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(updateProduct);
+    }
+
+    @GetMapping("/search/id/{id}")
+    public ResponseEntity<ProductDTO> searchId(@PathVariable Long id){
+        ProductDTO search = productService.searchById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(search);
+    }
+
+    @GetMapping("/search/name/{name}")
+    public List<ProductDTO> searchName(@PathVariable String name){
+        return productService.searchByName(name);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ProductDTO> delete(@PathVariable Long id){
+        productService.deleteProduct(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
 }

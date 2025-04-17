@@ -11,6 +11,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Orders_DetailsDTO {
 
+    Long id_Order;
+
+    Long id_Product;
+
     @NotNull(message = "Giá không được để trống")
     @Positive(message = "Giá phải lớn hơn 0")
     Double price;

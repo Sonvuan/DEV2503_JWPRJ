@@ -23,5 +23,7 @@ public class ConfigurationsDTO {
     @Size(max = 10,message = "Ghi chú không được vượt quá 10 kí tự")
     String notes;
 
+    private Boolean isDelete;
+    private Boolean isActive;
 
 }

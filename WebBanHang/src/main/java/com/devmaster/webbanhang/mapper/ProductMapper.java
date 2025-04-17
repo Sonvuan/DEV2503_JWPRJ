@@ -10,11 +10,10 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring")
 @Component
 public interface ProductMapper {
-    ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
-
-    Product toProductEntity(ProductDTO dto);
-
-
-    ProductDTO toProductDTO(Product entity);
+    @Mapping(source = "category.id", target = "id_Category")
+    Product toProductEntity(ProductDTO productDTO);
+    @Mapping(source = "id_Category", target = "category.id")
+    ProductDTO toProductDTO(Product product);
 }
+

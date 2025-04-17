@@ -35,5 +35,14 @@ public class CustomerDTO {
     @Pattern(regexp = "0[0-9]{9}", message = "Số điện thoại phải có 10 chữ số và bắt đầu bằng 0")
     String phone;
 
-    String avatar; // Không bắt buộc nên không cần validation
+    @NotNull(message = "Người tạo không được để trống")
+     Long createdBy;
+
+    @NotNull(message = "Người cập nhật không được để trống")
+     Long updateBy;
+
+    String avatar;
+
+     Boolean isDelete;
+     Boolean isActive;
 }

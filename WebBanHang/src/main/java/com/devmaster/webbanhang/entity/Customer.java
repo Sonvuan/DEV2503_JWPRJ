@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -59,8 +60,23 @@ public class Customer {
     @Column(name = "ISACTIVE")
     Boolean isActive;
 
+    // @PrePersist sẽ được gọi khi thêm mới đối tượng
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.createdDate = now;
+        this.updatedDate = now; // Đặt ngày giờ cập nhật khi thêm mới
+    }
+
+    // @PreUpdate sẽ được gọi khi cập nhật đối tượng
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedDate = LocalDateTime.now(); // Cập nhật ngày giờ mỗi khi có sự thay đổi
+    }
+
+
     // Ánh xạ quan hệ với Product (Một Category có nhiều Product)
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     List<Orders> orders;
 }

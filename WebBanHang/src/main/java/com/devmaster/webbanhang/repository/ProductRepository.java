@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    // Tìm kiếm category có tên chứa từ khóa, không phân biệt chữ hoa chữ thường
-    @Query("SELECT c FROM Category c WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%'))")
-    List<Category> findByNameContainingIgnoreCase(@Param("name") String name);
+    // Tìm kiếm Product có tên chứa từ khóa, không phân biệt chữ hoa chữ thường
+    @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    List<Product> findByNameContainingIgnoreCase(@Param("name") String name);
 }

@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,6 +33,6 @@ public class Configurations {
     Boolean isActive;
 
     @OneToMany(mappedBy = "configurations", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     List<Product_Config> product_configs;
 }

@@ -1,5 +1,7 @@
 package com.devmaster.webbanhang.dto;
 
+import com.devmaster.webbanhang.entity.Category;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,7 +14,8 @@ import lombok.experimental.FieldDefaults;
 public class ProductDTO {
     Long id;
 
-    CategoryDTO category;
+
+    Long id_Category;
 
     @NotBlank(message = "Tên sản phẩm không được để trống")
     @Size(max = 500, message = "Tên sản phẩm không được vượt quá 500 ký tự")

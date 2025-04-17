@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,10 +31,6 @@ public class News_Category {
     String icon;
 
 
-    @ManyToOne
-    @JoinColumn(name = "IDPARENT")
-    News_Category parentNews_Category;
-
     @Column(name = "SLUG", length = 160)
     String slug;
 
@@ -49,13 +46,13 @@ public class News_Category {
     @Column(name = "CREATED_DATE")
     LocalDateTime createdDate;
 
-    @Column(name = "UPDATEd_DATE")
+    @Column(name = "UPDATED_DATE")
     LocalDateTime updatedDate;
 
     @Column(name = "CREATED_BY")
     Long createdBy;
 
-    @Column(name = "UPDATEd_BY")
+    @Column(name = "UPDATED_BY")
     Long updatedBy;
 
     @Column(name = "ISDELETE")
@@ -64,8 +61,28 @@ public class News_Category {
     @Column(name = "ISACTIVE")
     Boolean isActive;
 
+    // @PrePersist sẽ được gọi khi thêm mới đối tượng
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.createdDate = now;
+        this.updatedDate = now; // Đặt ngày giờ cập nhật khi thêm mới
+    }
+
+    // @PreUpdate sẽ được gọi khi cập nhật đối tượng
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedDate = LocalDateTime.now(); // Cập nhật ngày giờ mỗi khi có sự thay đổi
+    }
+
+
+    // Danh mục cha (nối đến chính bảng này)
+    @ManyToOne
+    @JoinColumn(name = "IDPARENT")
+    News_Category parent;
+
     // ánh xạ
     @OneToMany(mappedBy = "news_category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     List<News> news;
 }

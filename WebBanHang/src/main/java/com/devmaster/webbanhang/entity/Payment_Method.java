@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,7 +30,7 @@ public class Payment_Method {
     @Column(name = "CREATED_DATE")
     LocalDateTime createdDate;
 
-    @Column(name = "UPDATEd_DATE")
+    @Column(name = "UPDATED_DATE")
     LocalDateTime updatedDate;
 
     @Column(name = "ISDELETE")
@@ -38,7 +39,21 @@ public class Payment_Method {
     @Column(name = "ISACTIVE")
     Boolean isActive;
 
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.createdDate = now;
+        this.updatedDate = now; // Đặt ngày giờ cập nhật khi thêm mới
+    }
+
+    // @PreUpdate sẽ được gọi khi cập nhật đối tượng
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedDate = LocalDateTime.now(); // Cập nhật ngày giờ mỗi khi có sự thay đổi
+    }
+
+
     @OneToMany(mappedBy = "payment_method", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     List<Orders> orders;
 }

@@ -12,7 +12,9 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryDTO {
-    private Long id;
+
+    // ID của danh mục cha (nếu có)
+    Long idParent;
 
     @NotBlank(message = "Tên không được để trống")
     @Size(max = 10, message = "Tên không được vượt quá 10 ký tự")

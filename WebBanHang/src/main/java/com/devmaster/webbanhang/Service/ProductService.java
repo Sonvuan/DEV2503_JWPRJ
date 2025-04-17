@@ -33,9 +33,8 @@ public class ProductService {
 
     // Thêm mới sản phẩm (kèm kiểm tra Category)
     public ProductDTO createProduct(ProductDTO productDTO) {
-        Product product = productMapper.toProductEntity(productDTO);
-        product = productRepository.save(product);
-        return productMapper.toProductDTO(product);
+            Product product = productMapper.toProductEntity(productDTO);
+            return productMapper.toProductDTO(productRepository.save(product));
     }
 
 
@@ -66,4 +65,24 @@ public class ProductService {
         throw new EntityNotFoundException("Product không tồn tại với ID: " + id);
     }
 
+    // tim kiem theo id
+    public ProductDTO searchById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
+
+        return productMapper.toProductDTO(product);
+    }
+
+    // tìm kiem theo ten
+    public List<ProductDTO> searchByName(String name) {
+        return productRepository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(productMapper::toProductDTO)
+                .collect(Collectors.toList());
+    }
+
+    // xoá
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
 }

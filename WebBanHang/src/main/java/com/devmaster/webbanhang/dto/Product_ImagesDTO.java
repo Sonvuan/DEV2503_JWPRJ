@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.dto;
 
+import com.devmaster.webbanhang.entity.Product;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -11,6 +12,8 @@ import org.hibernate.validator.constraints.URL;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product_ImagesDTO {
+
+    Long id_Product;
 
     @NotBlank(message = "Tên ảnh không được để trống")
     @Size(max = 250, message = "Tên ảnh không được vượt quá 250 ký tự")

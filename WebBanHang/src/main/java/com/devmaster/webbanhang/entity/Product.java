@@ -1,5 +1,7 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -89,22 +91,22 @@ public class Product {
     // Thiết lập khóa ngoại với bảng Category
     @ManyToOne
     @JoinColumn(name = "IDCATEGORY", referencedColumnName = "ID")
-    @JsonManagedReference
+    @JsonBackReference
     Category category;
 
 
     // ánh xạ
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     List<Product_Config> product_configs;
 
     // ánh xạ
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     List<Product_Images> product_images;
 
     // ánh ạ
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     List<Orders_Details> orders_details;
 }

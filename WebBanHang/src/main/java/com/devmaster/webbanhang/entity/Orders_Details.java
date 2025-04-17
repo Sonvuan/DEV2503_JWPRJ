@@ -1,5 +1,6 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,7 +36,6 @@ public class Orders_Details {
 
     @ManyToOne
     @JoinColumn(name = "IDPRODUCT",referencedColumnName = "ID")
-    @JsonManagedReference
     Product product;
 
 }

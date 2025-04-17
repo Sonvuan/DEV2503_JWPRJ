@@ -17,4 +17,7 @@ public class Payment_MethodDTO {
 
     @Size(max = 1000, message = "Ghi chú không được vượt quá 1000 ký tự")
     String notes;
+
+    private Boolean isDelete;
+    private Boolean isActive;
 }

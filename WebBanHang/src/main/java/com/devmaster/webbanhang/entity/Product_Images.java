@@ -1,5 +1,7 @@
 package com.devmaster.webbanhang.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,6 +27,6 @@ public class Product_Images {
 
     @ManyToOne
     @JoinColumn(name ="IDPRODUCT", referencedColumnName = "ID" )
-    @JsonManagedReference
+    @JsonIgnore
     Product product;
 }
